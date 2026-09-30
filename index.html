@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Quest - Mario Edition</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Map Selection Screen -->
+    <div id="mapSelection" class="screen">
+        <div class="container">
+            <header class="mario-header">
+                <h1>🍄 DSA QUEST 🍄</h1>
+                <p class="subtitle">Choose Your World!</p>
+            </header>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-label">Total Stars:</span>
+                    <span class="stat-value" id="totalStars">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Questions Done:</span>
+                    <span class="stat-value" id="totalDone">0</span>
+                </div>
+            </div>
+
+            <div class="maps-grid">
+                <div class="map-card" data-map="stack">
+                    <div class="map-icon">📚</div>
+                    <h3>Stack</h3>
+                    <p class="map-subtitle">LIFO Operations</p>
+                </div>
+                <div class="map-card" data-map="linkedlist">
+                    <div class="map-icon">🔗</div>
+                    <h3>Linked List</h3>
+                    <p class="map-subtitle">Node Connections</p>
+                </div>
+                <div class="map-card" data-map="binarytree">
+                    <div class="map-icon">🌳</div>
+                    <h3>Binary Tree</h3>
+                    <p class="map-subtitle">Tree Structures</p>
+                </div>
+                <div class="map-card" data-map="bst">
+                    <div class="map-icon">🎯</div>
+                    <h3>Binary Search Tree</h3>
+                    <p class="map-subtitle">Ordered Trees</p>
+                </div>
+                <div class="map-card" data-map="mixedtree">
+                    <div class="map-icon">🌲</div>
+                    <h3>Mixed Trees</h3>
+                    <p class="map-subtitle">General, AVL, BST</p>
+                </div>
+                <div class="map-card" data-map="arraystring">
+                    <div class="map-icon">📊</div>
+                    <h3>Array & String</h3>
+                    <p class="map-subtitle">STL Operations</p>
+                </div>
+                <div class="map-card" data-map="heap">
+                    <div class="map-icon">⛰️</div>
+                    <h3>Heap</h3>
+                    <p class="map-subtitle">Priority Queues</p>
+                </div>
+                <div class="map-card" data-map="mathematics">
+                    <div class="map-icon">🔢</div>
+                    <h3>Mathematics</h3>
+                    <p class="map-subtitle">Math Problems</p>
+                </div>
+                <div class="map-card" data-map="searchingsorting">
+                    <div class="map-icon">🔍</div>
+                    <h3>Searching & Sorting</h3>
+                    <p class="map-subtitle">Algorithms</p>
+                </div>
+                <div class="map-card" data-map="graph">
+                    <div class="map-icon">🕸️</div>
+                    <h3>Graph</h3>
+                    <p class="map-subtitle">Network Problems</p>
+                </div>
+                <div class="map-card" data-map="dp">
+                    <div class="map-icon">💡</div>
+                    <h3>Dynamic Programming</h3>
+                    <p class="map-subtitle">Optimization</p>
+                </div>
+                <div class="map-card" data-map="bfsdfs">
+                    <div class="map-icon">🚀</div>
+                    <h3>BFS/DFS</h3>
+                    <p class="map-subtitle">Traversal</p>
+                </div>
+                <div class="map-card" data-map="textprocessing">
+                    <div class="map-icon">📝</div>
+                    <h3>Text Processing</h3>
+                    <p class="map-subtitle">String Algorithms</p>
+                </div>
+                <div class="map-card" data-map="numbertheory">
+                    <div class="map-icon">🔬</div>
+                    <h3>Number Theory</h3>
+                    <p class="map-subtitle">Number Systems</p>
+                </div>
+                <div class="map-card" data-map="geometry">
+                    <div class="map-icon">📐</div>
+                    <h3>Geometry</h3>
+                    <p class="map-subtitle">Spatial Problems</p>
+                </div>
+                <div class="map-card" data-map="gametheory">
+                    <div class="map-icon">🎮</div>
+                    <h3>Game Theory</h3>
+                    <p class="map-subtitle">Strategy Games</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen hidden">
+        <div class="game-container">
+            <div class="game-header">
+                <button class="back-btn" id="backBtn">← Back to Maps</button>
+                <h2 id="currentMapTitle">Stack World</h2>
+                <div class="game-stats">
+                    <span class="game-stat">⭐ <span id="mapStars">0</span></span>
+                    <span class="game-stat">📝 <span id="mapProgress">0/0</span></span>
+                </div>
+            </div>
+            
+            <canvas id="gameCanvas"></canvas>
+            
+            <div class="controls-info">
+                <p>⬅️ ➡️ Arrow Keys to move | ⬆️ or SPACE to jump | Collect question blocks!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content confirm-modal">
+            <div class="modal-header">
+                <h2>📦 Question Found!</h2>
+                <button class="close-btn" id="closeConfirmModal">&times;</button>
+            </div>
+            <div class="confirm-content">
+                <p class="confirm-question-title" id="confirmQuestionTitle">Question Title</p>
+                <p class="confirm-text">Do you want to open this question?</p>
+                <div class="confirm-buttons">
+                    <button class="mario-btn confirm-yes" id="confirmYes">✅ Yes, Open It</button>
+                    <button class="mario-btn confirm-no" id="confirmNo">❌ No, Skip</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Modal -->
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="questionTitle">Question Title</h2>
+                <button class="close-btn" id="closeQuestionModal">&times;</button>
+            </div>
+            <div class="question-details">
+                <div class="detail-row">
+                    <span class="detail-label">Difficulty:</span>
+                    <span class="detail-value" id="questionDifficulty">Easy</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Category:</span>
+                    <span class="detail-value" id="questionCategory">Stack</span>
+                </div>
+                <div class="detail-links">
+                    <a href="#" target="_blank" class="link-btn" id="readLink">📖 Read</a>
+                    <a href="#" target="_blank" class="link-btn" id="videoLink">🎥 Watch</a>
+                </div>
+                <div class="detail-status">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="completedCheckbox">
+                        <span>✅ Mark as Completed</span>
+                    </label>
+                </div>
+                <div class="detail-notes">
+                    <label for="notesText">📝 Your Notes:</label>
+                    <textarea id="notesText" placeholder="Add your notes here..."></textarea>
+                </div>
+                <button class="mario-btn" id="saveQuestionBtn">Save & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
